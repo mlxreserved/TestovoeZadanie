@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="your_tasks">Ваши задачи</string>
+    <string name="question">Задайте вопрос работодателю</string>
+    <string name="he_will_get">Он получит его с откликом на вакансию</string>
+    <string name="response">Откликнуться</string>
+    <string name="experince">Требуемый опыт: %1$s</string>
+    <string name="responsed">%1$d %2$s уже откликнулось</string>
+    <string name="looking_now">%1$d %2$s сейчас смотрят</string>
+    <string name="resume">Резюме для отклика</string>
+    <string name="comp_name">UI/UX дизайнер</string>
+    <string name="add_sopr">Добавить сопроводительное</string>
+    <string name="your_sopr">Ваше сопроводительное письмо</string>
+</resources>

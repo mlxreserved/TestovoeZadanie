@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vacancies">%1$d %2$s</string>
+    <string name="response">Откликнуться</string>
+    <string name="favorite">Избранное</string>
+    <string name="published">Опубликовано %1$s</string>
+    <string name="now_looking">Сейчас просматривает %1$d %2$s</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="32dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginBottom="16dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/favorite"
+        android:textSize="20sp"
+        android:fontFamily="@font/sfpro_semibold"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/white">
+
+    </TextView>
+    <TextView
+        android:id="@+id/favorite_vacancies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/sfpro_regular"
+        android:textColor="@color/grey3"
+        android:textSize="14sp" />
+</LinearLayout>
