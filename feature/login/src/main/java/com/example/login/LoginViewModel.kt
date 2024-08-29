@@ -36,12 +36,6 @@ internal class LoginViewModel: ViewModel() {
                 activeButton = code.size+1==5) }
     }
 
-    fun changePrevSelected(prev: Int){
-        _codeState.update {
-            it.copy(prevSelected = prev)
-        }
-    }
-
     fun delCode(){
         _codeState.update {
             val code = it.code.apply { removeLast() }
