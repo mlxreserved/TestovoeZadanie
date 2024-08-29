@@ -182,14 +182,14 @@ class CodeFragment: Fragment() {
                         if(s.toString().length>0) {
                             loginViewModel.addCode(s.toString())
                             if(j == 3){
-                                applyBtn.isEnabled=true
+                                applyBtn.isEnabled=codeState.value.activeButton
                             }
                             nextEditText().requestFocus()
                         } else{
                             loginViewModel.delCode()
                             prevEditText().requestFocus()
                             if(j == 3){
-                                applyBtn.isEnabled=false
+                                applyBtn.isEnabled=codeState.value.activeButton
                             }
                         }
                     }
