@@ -14,6 +14,6 @@ private const val ID = "1z4TbeDkbfXkvgpoJprXbN85uCcD7f00r"
 class NetworkVacancyStorage @Inject constructor(private val networkService: NetworkService): VacancyStorage {
 
     override suspend fun getVacancies(): Offers =
-                networkService.getVacancies(id = ID, export = "download")
+                networkService.getVacancies()
 
 }

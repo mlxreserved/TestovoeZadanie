@@ -7,6 +7,8 @@ import com.example.data2.storage.model.coordinate.GeoObject
 import com.example.data2.storage.model.coordinate.GeoObjectCollection
 import com.example.data2.storage.model.coordinate.Point
 import com.example.data2.storage.model.coordinate.Response
+import com.example.data2.storage.services.GeocoderService
+import com.example.data2.storage.services.NetworkService
 import com.example.domain.model.coordinate.CoordinateDomain
 import com.example.domain.model.coordinate.FeatureMemberDomain
 import com.example.domain.model.coordinate.GeoObjectCollectionDomain

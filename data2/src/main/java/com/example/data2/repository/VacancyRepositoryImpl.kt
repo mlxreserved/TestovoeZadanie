@@ -7,6 +7,7 @@ import com.example.data2.storage.model.vacancy.Offer
 import com.example.data2.storage.model.vacancy.Offers
 import com.example.data2.storage.model.vacancy.Salary
 import com.example.data2.storage.model.vacancy.Vacancy
+import com.example.data2.storage.services.NetworkService
 import com.example.data2.storage.vacancyStorage.VacancyStorage
 import com.example.domain.model.vacancy.AddressDomain
 import com.example.domain.model.vacancy.ButtonDomain
@@ -57,7 +58,12 @@ class VacancyRepositoryImpl @Inject constructor(private val vacancyStorage: Vaca
             questions = vacancy.questions,
             salary = mapToSalaryDomain(vacancy.salary),
             schedules = vacancy.schedules,
-            title = vacancy.title)
+            title = vacancy.title,
+            responsibilities = vacancy.responsibilities,
+            description = vacancy.description,
+            lookingNumber = vacancy.lookingNumber,
+            appliedNumber = vacancy.appliedNumber
+        )
     }
     private fun mapToAddressDomain(address: Address): AddressDomain {
         return AddressDomain(

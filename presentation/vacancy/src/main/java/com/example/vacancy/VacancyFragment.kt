@@ -24,6 +24,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.example.data2.storage.model.vacancy.Vacancy
 import com.example.domain.model.favorite.FavoriteVacancyDomain
+import com.example.domain.model.vacancy.VacancyDomain
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -91,7 +92,7 @@ class VacancyFragment: Fragment() {
         val bundle = arguments
         if(bundle!=null){
             val string: String = bundle.getString("json") ?: ""
-            val vacancy = Json.decodeFromJsonElement<Vacancy>(Json.parseToJsonElement(string))
+            val vacancy = Json.decodeFromJsonElement<VacancyDomain>(Json.parseToJsonElement(string))
             vacancyViewModel.setVacancy(vacancy)
         }
         toolbar = view.findViewById(R.id.toolbar) as Toolbar

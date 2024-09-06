@@ -2,7 +2,7 @@ package com.example.vacancies.di
 
 import android.app.Application
 
-/*class MainApp: Application() {
+/*class MainApp: Application() {}
     lateinit var networkComponent: NetworkComponent
     lateinit var databaseComponent: DatabaseComponent
 

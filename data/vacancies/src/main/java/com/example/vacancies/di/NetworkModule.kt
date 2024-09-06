@@ -1,3 +1,4 @@
+/*
 package com.example.vacancies.di
 
 import com.example.vacancies.api.GeocoderService
@@ -65,4 +66,4 @@ internal interface AppBindModule{
     fun bindGeocoderRepositoryImpl_toGeocoderRepository(
         geoocoderRepositoryImpl: GeocoderRepositoryImpl
     ): GeocoderRepository
-}
+}*/

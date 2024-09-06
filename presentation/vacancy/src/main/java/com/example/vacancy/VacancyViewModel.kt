@@ -13,6 +13,7 @@ import com.example.data2.storage.geocoderStorage.network.NetworkGeocoderStorage
 import com.example.data2.storage.model.vacancy.Vacancy
 import com.example.domain.model.coordinate.CoordinateDomain
 import com.example.domain.model.favorite.FavoriteVacancyDomain
+import com.example.domain.model.vacancy.VacancyDomain
 import com.example.domain.repository.FavoriteRepository
 import com.example.domain.usecase.AddVacancyToDBUseCase
 import com.example.domain.usecase.DeleteVacancyFromFavoriteUseCase
@@ -29,7 +30,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal data class VacancyState(
-    val vacancy: Vacancy? = null
+    val vacancy: VacancyDomain? = null
 )
 
 internal data class DatabaseState(
@@ -64,7 +65,7 @@ internal class VacancyViewModel(
             initialValue = DatabaseState()
         )
 
-    fun setVacancy(vacancy: Vacancy){
+    fun setVacancy(vacancy: VacancyDomain){
         _vacancyState.update { it.copy(vacancy = vacancy) }
     }
 

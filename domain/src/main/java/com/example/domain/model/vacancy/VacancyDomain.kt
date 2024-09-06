@@ -1,5 +1,8 @@
 package com.example.domain.model.vacancy
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class VacancyDomain(
     val address: AddressDomain,
     val appliedNumber: Int? = null,

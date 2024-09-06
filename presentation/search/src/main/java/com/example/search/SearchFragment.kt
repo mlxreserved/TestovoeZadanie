@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.favorite.FavoriteVacancyDomain
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 

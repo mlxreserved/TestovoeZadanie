@@ -4,13 +4,13 @@ import com.example.data2.storage.model.coordinate.Coordinate
 import com.example.data2.storage.model.vacancy.Offers
 import retrofit2.http.GET
 import retrofit2.http.Query
-
+private const val ID = "1z4TbeDkbfXkvgpoJprXbN85uCcD7f00r"
 private const val KEY_COORDINATE = "8868527d-80b8-43d6-bab9-f6111ec94ee8"
 
 interface NetworkService {
     @GET("u/0/uc")
-    suspend fun getVacancies(@Query("id") id: String,
-                             @Query("export") export: String): Offers
+    suspend fun getVacancies(@Query("id") id: String = ID,
+                             @Query("export") export: String = "download"): Offers
 
 
 }
