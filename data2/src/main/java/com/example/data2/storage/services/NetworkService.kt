@@ -2,6 +2,7 @@ package com.example.data2.storage.services
 
 import com.example.data2.storage.model.coordinate.Coordinate
 import com.example.data2.storage.model.vacancy.Offers
+import com.example.domain.model.coordinate.CoordinateDomain
 import retrofit2.http.GET
 import retrofit2.http.Query
 private const val ID = "1z4TbeDkbfXkvgpoJprXbN85uCcD7f00r"
@@ -22,5 +23,5 @@ interface GeocoderService {
         @Query("apikey") apiKey: String = KEY_COORDINATE,
         @Query("lang") lang: String = "ru-RU",
         @Query("format") format: String = "json"
-    ): Coordinate
+    ): CoordinateDomain
 }

@@ -21,7 +21,7 @@ import javax.inject.Inject
 class GeocoderRepositoryImpl @Inject constructor(private val geocoderStorage: GeocoderStorage): GeocoderRepository {
     override suspend fun getCoordinate(city: String): CoordinateDomain {
         val res = geocoderStorage.getCoordinate(city)
-        return mapToCoordinateDomain(res)
+        return res
     }
 
 
