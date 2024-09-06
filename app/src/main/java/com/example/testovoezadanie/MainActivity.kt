@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.Callbacks,
 
                 when(item.itemId){
                     R.id.search->{
-                        if(curFragment::class.java.name!=SearchFragment::class.java.name) {
+                        if(curFragment::class.java.name!= SearchFragment::class.java.name) {
                             val fragList = supportFragmentManager.fragments
                             for(fragment in fragList){
                                 if(fragment::class.java.name != SearchFragment::class.java.name){
@@ -119,7 +119,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.Callbacks,
                         }
                         if(supportFragmentManager.findFragmentByTag(SearchFragment::class.java.name)==null){
                             supportFragmentManager.beginTransaction()
-                                .add(R.id.fragment_container, SearchFragment(), SearchFragment::class.java.name)
+                                .add(R.id.fragment_container,
+                                    SearchFragment(), SearchFragment::class.java.name)
                                 .commit()
                         }
                     }
@@ -145,7 +146,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.Callbacks,
                                     supportFragmentManager.popBackStack()
                                 }
                             }
-                            val fragmentToAdd = ResponseFragment()
+                            val fragmentToAdd =ResponseFragment()
                             supportFragmentManager.beginTransaction().add(R.id.fragment_container, fragmentToAdd, fragmentToAdd::class.java.name).commit()
                         }
                     }
@@ -205,6 +206,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.Callbacks,
             .add(R.id.fragment_container, fragment, MoreFragment::class.java.name)
             .addToBackStack(SearchFragment::class.java.name)
             .commit()
+
     }
 
     override fun onVacancyClick(json: String) {

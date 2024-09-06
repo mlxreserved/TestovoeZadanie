@@ -1,16 +1,13 @@
 package com.example.vacancies.di
 
 import android.content.Context
-import com.example.vacancies.database.FavoriteDao
-import com.example.vacancies.database.FavoriteDatabase
-import com.example.vacancies.repository.FavoritesRepository
-import com.example.vacancies.repository.OfflineFavoritesRepository
 import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
+/*
 @Singleton
 @Component(modules = [DatabaseModule::class])
 interface DatabaseComponent{
@@ -36,4 +33,4 @@ internal class DatabaseModule(private val context: Context) {
 internal interface DatabaseBindModule{
     @Binds
     fun bindOfflineFavoritesRepository_to_FavoritesRepository(offlineFavoritesRepository: OfflineFavoritesRepository): FavoritesRepository
-}
+}*/

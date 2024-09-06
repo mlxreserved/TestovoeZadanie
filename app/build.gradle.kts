@@ -7,6 +7,7 @@ plugins {
 android {
     namespace = "com.example.testovoezadanie"
     compileSdk = 34
+    buildToolsVersion = "21.1.2"
 
     defaultConfig {
         applicationId = "com.example.testovoezadanie"
@@ -37,16 +38,19 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:login"))
-    implementation(project(":feature:search"))
-    implementation(project(":feature:vacancy"))
-    implementation(project(":feature:favorite"))
-    implementation(project(":feature:response"))
-    implementation(project(":feature:message"))
-    implementation(project(":feature:profile"))
 // Dagger 2
     implementation("com.google.dagger:dagger:2.51.1")
     kapt("com.google.dagger:dagger-compiler:2.51.1")
+
+    implementation(project(":data2"))
+    implementation(project(":domain"))
+    implementation(project(":presentation:favorite"))
+    implementation(project(":presentation:login"))
+    implementation(project(":presentation:message"))
+    implementation(project(":presentation:profile"))
+    implementation(project(":presentation:response"))
+    implementation(project(":presentation:search"))
+    implementation(project(":presentation:vacancy"))
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
