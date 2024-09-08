@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-kapt")
+    alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
+
 }
 
 android {
@@ -34,19 +35,11 @@ android {
 }
 
 dependencies {
-    implementation("androidx.fragment:fragment-ktx:1.8.2")
-    implementation(project(":data2"))
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.jetbrains.kotlinx.serialization)
+
+    implementation(project(":data"))
     implementation(project(":domain"))
-
-    //Retrofit
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-
-    // Dagger 2
-    implementation("com.google.dagger:dagger:2.51.1")
-    kapt("com.google.dagger:dagger-compiler:2.51.1")
-
 
 
     implementation(libs.androidx.core.ktx)

@@ -34,7 +34,7 @@ android {
 
 dependencies {
 
-    implementation(project(":data2"))
+    implementation(project(":data"))
     implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)

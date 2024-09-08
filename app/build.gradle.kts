@@ -1,13 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-kapt")
+    alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
     namespace = "com.example.testovoezadanie"
     compileSdk = 34
-    buildToolsVersion = "21.1.2"
 
     defaultConfig {
         applicationId = "com.example.testovoezadanie"
@@ -39,10 +39,10 @@ android {
 
 dependencies {
 // Dagger 2
-    implementation("com.google.dagger:dagger:2.51.1")
-    kapt("com.google.dagger:dagger-compiler:2.51.1")
+    implementation(libs.google.dagger)
+    ksp(libs.google.dagger.compiler)
+    implementation(project(":data"))
 
-    implementation(project(":data2"))
     implementation(project(":domain"))
     implementation(project(":presentation:favorite"))
     implementation(project(":presentation:login"))
@@ -52,7 +52,7 @@ dependencies {
     implementation(project(":presentation:search"))
     implementation(project(":presentation:vacancy"))
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation(libs.jetbrains.kotlinx.serialization)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

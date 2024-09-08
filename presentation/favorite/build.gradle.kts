@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
 }
 
 android {
@@ -33,10 +34,11 @@ android {
 }
 
 dependencies {
-    implementation("androidx.fragment:fragment-ktx:1.8.2")
-    implementation(project(":data2"))
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.jetbrains.kotlinx.serialization)
+
+    implementation(project(":data"))
     implementation(project(":domain"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
