@@ -1,3 +1,4 @@
+/*
 package com.example.data2.di
 
 import android.app.Application
@@ -13,3 +14,4 @@ class MainApp: Application() {
     }
     private fun initDagger(context: MainApp): DatabaseComponent = DaggerDatabaseComponent.builder().databaseModule(DatabaseModule(context)).build()
 }
+*/

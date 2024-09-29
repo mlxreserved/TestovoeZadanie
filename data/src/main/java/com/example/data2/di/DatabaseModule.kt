@@ -1,3 +1,4 @@
+/*
 
 package com.example.data2.di
 
@@ -49,3 +50,4 @@ internal interface DatabaseBindModule{
     @Binds
     fun bindFavoriteRepositoryImpl_to_FavoriteRepository(favoriteRepositoryImpl: FavoriteRepositoryImpl): FavoriteRepository
 }
+*/

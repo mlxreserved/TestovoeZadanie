@@ -14,5 +14,5 @@ import javax.inject.Inject
 
 class NetworkGeocoderStorage @Inject constructor(private val geocoderService: GeocoderService): GeocoderStorage {
 
-    override suspend fun getCoordinate(city: String): CoordinateDomain = geocoderService.getCoordinate(city)
+    override suspend fun getCoordinate(city: String): Coordinate = geocoderService.getCoordinate(city)
 }

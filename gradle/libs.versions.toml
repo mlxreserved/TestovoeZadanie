@@ -1,6 +1,6 @@
 [versions]
 agp = "8.5.2"
-kotlin = "2.0.20"
+kotlin = "2.0.10"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 jetbrainsKotlinPluginSerialization = "1.9.0"
@@ -12,14 +12,15 @@ activity = "1.9.2"
 constraintlayout = "2.1.4"
 jetbrainsKotlinJvm = "1.9.0"
 fragment = "1.8.3"
-serialization = "1.5.1"
+serialization = "1.6.3"
 serializationConverter = "1.0.0"
 okhttp3 = "4.12.0"
 dagger = "2.51.1"
 coil = "2.7.0"
 coroutines = "1.9.0-RC.2"
 room = "2.6.1"
-ksp = "2.0.20-1.0.24"
+ksp = "2.0.10-1.0.24"
+inject = "1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +35,12 @@ jetbrains-kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "k
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room"}
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room"}
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room"}
+javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "inject"}
+google-dagger-android-processor = {group = "com.google.dagger", name = "dagger-android-processor", version.ref = "dagger"}
+google-dagger-android = { group = "com.google.dagger", name = "dagger-android", version.ref = "dagger"}
+google-dagger-android-support = { group = "com.google.dagger", name = "dagger-android-support", version.ref = "dagger"}
+
+
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

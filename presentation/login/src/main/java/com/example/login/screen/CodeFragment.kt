@@ -1,8 +1,7 @@
-package com.example.login
+package com.example.login.screen
 
 import android.content.Context
 import android.os.Bundle
-import android.telecom.Call
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -16,10 +15,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.login.R
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 class CodeFragment: Fragment() {
 

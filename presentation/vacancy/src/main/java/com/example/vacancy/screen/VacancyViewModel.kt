@@ -1,22 +1,12 @@
-package com.example.vacancy
+package com.example.vacancy.screen
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.data2.di.MainApp
-import com.example.data2.repository.GeocoderRepositoryImpl
-import com.example.data2.storage.favoriteStorage.database.DatabaseFavoriteStorage
-import com.example.data2.storage.geocoderStorage.network.NetworkGeocoderStorage
-import com.example.data2.storage.model.vacancy.Vacancy
 import com.example.domain.model.coordinate.CoordinateDomain
 import com.example.domain.model.favorite.FavoriteVacancyDomain
 import com.example.domain.model.vacancy.VacancyDomain
-import com.example.domain.repository.FavoriteRepository
 import com.example.domain.usecase.AddVacancyToDBUseCase
-import com.example.domain.usecase.DeleteVacancyFromFavoriteUseCase
+import com.example.domain.usecase.DeleteVacancyFromDBUseCase
 import com.example.domain.usecase.GetCoordinateFromNetworkUseCase
 import com.example.domain.usecase.GetFavoritesVacanciesUseCase
 import kotlinx.coroutines.Dispatchers
@@ -43,11 +33,9 @@ internal data class CoordinateState(
 
 
 internal class VacancyViewModel(
-    //private val favoritesRepository: FavoriteRepository,
-    //private val geocoderRepository: GeocoderRepository
     private val getFavoritesVacanciesUseCase: GetFavoritesVacanciesUseCase,
     private val addVacancyToDBUseCase: AddVacancyToDBUseCase,
-    private val deleteVacancyFromFavoriteUseCase: DeleteVacancyFromFavoriteUseCase,
+    private val deleteVacancyFromDBUseCase: DeleteVacancyFromDBUseCase,
     private val getCoordinateFromNetworkUseCase: GetCoordinateFromNetworkUseCase
 ): ViewModel() {
 
@@ -92,7 +80,7 @@ internal class VacancyViewModel(
 
     fun deleteFromDB(item: String){
         viewModelScope.launch(Dispatchers.IO) {
-            deleteVacancyFromFavoriteUseCase.execute(FavoriteVacancyDomain(item))
+            deleteVacancyFromDBUseCase.execute(FavoriteVacancyDomain(item))
         }
     }
 
@@ -100,12 +88,12 @@ internal class VacancyViewModel(
         private const val TIMEOUT_MILLIS = 5_000L
 
 
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
+        /*val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = this[APPLICATION_KEY] as MainApp
                 val favoritesRepository = application.databaseComponent.favoritesRepository
                 val addVacancyToDBUseCase = AddVacancyToDBUseCase(favoritesRepository)
-                val deleteVacancyFromFavoriteUseCase = DeleteVacancyFromFavoriteUseCase(favoritesRepository)
+                val deleteVacancyFromFavoriteUseCase = DeleteVacancyFromDBUseCase(favoritesRepository)
                 val getFavoritesVacanciesUseCase = GetFavoritesVacanciesUseCase(favoritesRepository)
                 val geocoderRepository = application.networkComponent.geocoderRepository
                 VacancyViewModel(
@@ -116,7 +104,7 @@ internal class VacancyViewModel(
 
                 )
             }
-        }
+        }*/
     }
 
 }

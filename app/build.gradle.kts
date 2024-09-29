@@ -38,9 +38,24 @@ android {
 }
 
 dependencies {
-// Dagger 2
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    //Retrofit
+    implementation(libs.jakewarthon.retrofit)
+    implementation(libs.jetbrains.kotlinx.serialization)
+    implementation(libs.squareup.okhttp3)
+
+    // Dagger 2
     implementation(libs.google.dagger)
     ksp(libs.google.dagger.compiler)
+    implementation(libs.google.dagger.android.support)
+    ksp(libs.google.dagger.android.processor)
+    implementation(libs.google.dagger.android)
+
     implementation(project(":data"))
 
     implementation(project(":domain"))

@@ -23,7 +23,7 @@ import javax.inject.Inject
 class VacancyRepositoryImpl @Inject constructor(private val vacancyStorage: VacancyStorage): VacancyRepository {
 
     override suspend fun getVacancies(): OffersDomain {
-        var res = vacancyStorage.getVacancies()
+        val res = vacancyStorage.getVacancies()
         return mapToOffersDomain(res)
     }
 

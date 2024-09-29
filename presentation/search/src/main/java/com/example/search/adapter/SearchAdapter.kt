@@ -1,4 +1,4 @@
-package com.example.search
+package com.example.search.adapter
 
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
@@ -13,10 +13,10 @@ import android.widget.TextView
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data2.storage.model.vacancy.Offer
-import com.example.data2.storage.model.vacancy.Vacancy
 import com.example.domain.model.vacancy.OfferDomain
 import com.example.domain.model.vacancy.VacancyDomain
+import com.example.search.R
+import com.example.search.decoration.RecomRecyclerDecoration
 import java.text.SimpleDateFormat
 import java.util.Locale
 

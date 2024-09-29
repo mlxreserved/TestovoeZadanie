@@ -1,13 +1,11 @@
-package com.example.search
+package com.example.search.screen
 
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -16,10 +14,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.favorite.FavoriteVacancyDomain
+import com.example.search.R
+import com.example.search.adapter.ListItem
+import com.example.search.adapter.SearchAdapter
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
+import javax.inject.Inject
 
 class MoreFragment: Fragment() {
 
@@ -38,9 +40,15 @@ class MoreFragment: Fragment() {
     private var callbacks: Callbacks? = null
 
 
+    @Inject
+    private lateinit var searchViewModelFactory: SearchViewModelFactory
+
     private val searchViewModel: SearchViewModel by activityViewModels{
-        SearchViewModel.Factory
+        searchViewModelFactory
     }
+
+
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

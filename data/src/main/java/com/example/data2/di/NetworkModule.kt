@@ -1,3 +1,4 @@
+/*
 package com.example.data2.di
 
 import com.example.data2.repository.GeocoderRepositoryImpl
@@ -22,8 +23,7 @@ import retrofit2.Retrofit
 import retrofit2.create
 import javax.inject.Singleton
 
-private const val BASE_URL = "https://drive.usercontent.google.com/"
-private const val BASE_URL_COORDINATE = "https://geocode-maps.yandex.ru/"
+
 
 @Singleton
 @Component(modules = [AppModule::class])
@@ -80,4 +80,4 @@ internal interface AppBindModule{
     fun bindGeocoderRepositoryImpl_toGeocoderRepository(
         geoocoderRepositoryImpl: GeocoderRepositoryImpl
     ): GeocoderRepository
-}
+}*/

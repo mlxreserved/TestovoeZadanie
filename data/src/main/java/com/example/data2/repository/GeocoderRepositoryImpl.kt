@@ -21,9 +21,8 @@ import javax.inject.Inject
 class GeocoderRepositoryImpl @Inject constructor(private val geocoderStorage: GeocoderStorage): GeocoderRepository {
     override suspend fun getCoordinate(city: String): CoordinateDomain {
         val res = geocoderStorage.getCoordinate(city)
-        return res
+        return mapToCoordinateDomain(res)
     }
-
 
     private fun mapToCoordinateDomain(coordinate: Coordinate): CoordinateDomain{
         return CoordinateDomain(
@@ -61,39 +60,4 @@ class GeocoderRepositoryImpl @Inject constructor(private val geocoderStorage: Ge
         )
     }
 
-    private fun mapToCoordinate(coordinateDomain: CoordinateDomain): Coordinate{
-        return Coordinate(
-            response = mapToResponse(coordinateDomain.response)
-        )
-    }
-
-    private fun mapToResponse(responseDomain: ResponseDomain): Response{
-        return Response(
-            GeoObjectCollection = mapToGeoObjectCollection(responseDomain.GeoObjectCollection)
-        )
-    }
-
-    private fun mapToGeoObjectCollection(geoObjectCollectionDomain: GeoObjectCollectionDomain): GeoObjectCollection{
-        return GeoObjectCollection(
-            featureMember = geoObjectCollectionDomain.featureMember.map { mapToFeatureMember(it) }
-        )
-    }
-
-    private fun mapToFeatureMember(featureMemberDomain: FeatureMemberDomain): FeatureMember {
-        return FeatureMember(
-            GeoObject = mapToGeoObject(featureMemberDomain.GeoObject)
-        )
-    }
-
-    private fun mapToGeoObject(geoObjectDomain: GeoObjectDomain): GeoObject{
-        return GeoObject(
-            Point = mapToPoint(geoObjectDomain.Point)
-        )
-    }
-
-    private fun mapToPoint(pointDomain: PointDomain): Point{
-        return Point(
-            pos = pointDomain.pos
-        )
-    }
 }

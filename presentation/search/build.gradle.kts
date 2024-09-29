@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
-
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
@@ -37,6 +37,11 @@ android {
 dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.jetbrains.kotlinx.serialization)
+    implementation(libs.javax.inject)
+
+    implementation(libs.google.dagger.android.support)
+    ksp(libs.google.dagger.android.processor)
+    implementation(libs.google.dagger.android)
 
     implementation(project(":data"))
     implementation(project(":domain"))

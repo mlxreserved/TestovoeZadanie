@@ -38,6 +38,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(libs.jetbrains.kotlinx.serialization)
+    implementation(libs.javax.inject)
     //Coil
     implementation(libs.io.coil.kt)
 

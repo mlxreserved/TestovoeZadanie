@@ -1,4 +1,4 @@
-package com.example.favorite
+package com.example.favorite.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data2.storage.model.vacancy.Vacancy
 import com.example.domain.model.vacancy.VacancyDomain
+import com.example.favorite.R
 import java.text.SimpleDateFormat
 import java.util.Locale
 

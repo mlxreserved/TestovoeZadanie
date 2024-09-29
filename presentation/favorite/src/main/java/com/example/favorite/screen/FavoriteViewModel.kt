@@ -1,28 +1,14 @@
-package com.example.favorite
+package com.example.favorite.screen
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.data2.database.FavoriteDao
-import com.example.data2.database.FavoriteDatabase
-import com.example.data2.di.MainApp
-import com.example.data2.repository.FavoriteRepositoryImpl
-import com.example.data2.repository.VacancyRepositoryImpl
-import com.example.data2.storage.favoriteStorage.FavoriteStorage
-import com.example.data2.storage.favoriteStorage.database.DatabaseFavoriteStorage
 import com.example.domain.model.favorite.FavoriteVacancyDomain
-import com.example.domain.repository.FavoriteRepository
-import com.example.domain.repository.VacancyRepository
-import com.example.data2.storage.model.vacancy.Offers
-import com.example.data2.storage.services.NetworkService
-import com.example.data2.storage.vacancyStorage.network.NetworkVacancyStorage
 import com.example.domain.model.vacancy.OffersDomain
-import com.example.domain.usecase.AddVacancyToDBUseCase
-import com.example.domain.usecase.DeleteVacancyFromFavoriteUseCase
+import com.example.domain.usecase.DeleteVacancyFromDBUseCase
 import com.example.domain.usecase.GetFavoritesVacanciesUseCase
 import com.example.domain.usecase.GetVacanciesFromNetworkUseCase
 import kotlinx.coroutines.Dispatchers
@@ -44,9 +30,7 @@ internal data class DatabaseState(
 )
 
 internal class FavoriteViewModel(
-    //private val vacancyRepository: VacancyRepository,
-    //private val favoritesRepository: FavoriteRepository
-    private val deleteVacancyFromFavoriteUseCase: DeleteVacancyFromFavoriteUseCase,
+    private val deleteVacancyFromDBUseCase: DeleteVacancyFromDBUseCase,
     private val getFavoritesVacanciesUseCase: GetFavoritesVacanciesUseCase,
     private val getVacanciesFromNetworkUseCase: GetVacanciesFromNetworkUseCase
 ): ViewModel() {
@@ -82,7 +66,7 @@ internal class FavoriteViewModel(
 
     fun deleteFromDB(item: String){
         viewModelScope.launch(Dispatchers.IO) {
-            deleteVacancyFromFavoriteUseCase.execute(FavoriteVacancyDomain(item))
+            deleteVacancyFromDBUseCase.execute(FavoriteVacancyDomain(item))
         }
     }
 
@@ -90,22 +74,19 @@ internal class FavoriteViewModel(
         private const val TIMEOUT_MILLIS = 5_000L
 
 
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
+        /*val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val application = (this[APPLICATION_KEY] as MainApp)
-                //val networkRepository = application.networkComponent.networkRepository
-                val favoritesRepository = application.databaseComponent.favoritesRepository
-                val vacancyRepository = application.networkComponent.vacancyRepository
+                val application = (this[APPLICATION_KEY] as App)
+                val favoritesRepository = application.appComponent.favoritesRepository
+                val vacancyRepository = application.appComponent.vacancyRepository
 
                 FavoriteViewModel(
-                    //networkRepository = networkRepository,
-                    //favoritesRepository = favoritesRepository
                     getFavoritesVacanciesUseCase = GetFavoritesVacanciesUseCase(favoritesRepository),
-                    deleteVacancyFromFavoriteUseCase = DeleteVacancyFromFavoriteUseCase(favoritesRepository),
+                    deleteVacancyFromDBUseCase = DeleteVacancyFromDBUseCase(favoritesRepository),
                     getVacanciesFromNetworkUseCase = GetVacanciesFromNetworkUseCase(vacancyRepository)
                 )
             }
-        }
+        }*/
     }
 }
 

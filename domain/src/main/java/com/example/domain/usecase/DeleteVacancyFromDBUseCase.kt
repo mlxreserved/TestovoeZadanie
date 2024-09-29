@@ -3,7 +3,7 @@ package com.example.domain.usecase
 import com.example.domain.model.favorite.FavoriteVacancyDomain
 import com.example.domain.repository.FavoriteRepository
 
-class DeleteVacancyFromFavoriteUseCase(
+class DeleteVacancyFromDBUseCase(
     private val favoriteRepository: FavoriteRepository
 ) {
 

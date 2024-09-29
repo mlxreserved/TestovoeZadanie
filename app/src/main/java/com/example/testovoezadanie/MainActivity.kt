@@ -1,35 +1,24 @@
 package com.example.testovoezadanie
 
-import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.DisplayMetrics
-import android.util.Log
-import android.view.View
-import android.view.Window
-import android.view.WindowInsets
-import android.view.WindowManager
-import android.view.WindowMetrics
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.example.favorite.FavoriteFragment
-import com.example.login.*
-import com.example.message.MessageFragment
-import com.example.profile.ProfileFragment
-import com.example.response.ResponseFragment
-import com.example.search.MoreFragment
-import com.example.search.SearchFragment
-import com.example.vacancy.BottomSheetFragment
-import com.example.vacancy.VacancyFragment
+import com.example.favorite.screen.FavoriteFragment
+import com.example.login.screen.CodeFragment
+import com.example.login.screen.LoginFragment
+import com.example.message.screen.MessageFragment
+import com.example.profile.screen.ProfileFragment
+import com.example.response.screen.ResponseFragment
+import com.example.search.screen.MoreFragment
+import com.example.search.screen.SearchFragment
+import com.example.vacancy.screen.BottomSheetFragment
+import com.example.vacancy.screen.VacancyFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonElement
+import dagger.android.support.DaggerAppCompatActivity
 
 class MainActivity : AppCompatActivity(), LoginFragment.Callbacks,
     CodeFragment.Callbacks, SearchFragment.Callbacks,
@@ -69,10 +58,6 @@ class MainActivity : AppCompatActivity(), LoginFragment.Callbacks,
             bottomNavBar.layoutParams.height = systemBars.bottom+195
             insets
         }
-
-
-
-
 
         bottomNavBar = findViewById(R.id.bottomNavigationView)
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
@@ -146,7 +131,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.Callbacks,
                                     supportFragmentManager.popBackStack()
                                 }
                             }
-                            val fragmentToAdd =ResponseFragment()
+                            val fragmentToAdd = ResponseFragment()
                             supportFragmentManager.beginTransaction().add(R.id.fragment_container, fragmentToAdd, fragmentToAdd::class.java.name).commit()
                         }
                     }

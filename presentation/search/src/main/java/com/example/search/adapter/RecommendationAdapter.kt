@@ -1,4 +1,4 @@
-package com.example.search
+package com.example.search.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.search.R
 
 internal class RecommendationAdapter(private val items: List<ListItem.RecItem>): RecyclerView.Adapter<RecommendationAdapter.ViewHolder>() {
 

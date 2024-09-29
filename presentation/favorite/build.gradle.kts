@@ -36,6 +36,7 @@ android {
 dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.jetbrains.kotlinx.serialization)
+    implementation(libs.javax.inject)
 
     implementation(project(":data"))
     implementation(project(":domain"))

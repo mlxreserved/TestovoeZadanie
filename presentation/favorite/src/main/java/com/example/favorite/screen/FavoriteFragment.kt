@@ -1,32 +1,34 @@
-package com.example.search
+package com.example.favorite.screen
 
+import android.app.Application
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.favorite.FavoriteVacancyDomain
+import com.example.favorite.R
+import com.example.favorite.adapter.FavoriteAdapter
+import com.example.favorite.adapter.ListItem
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
+import javax.inject.Inject
 
-class SearchFragment: Fragment() {
+class  FavoriteFragment: Fragment() {
+
 
     interface Callbacks{
-        fun onButtonPressed()
         fun onVacancyClick(json: String)
         fun refreshBadge(countFav: Int)
     }
@@ -35,13 +37,16 @@ class SearchFragment: Fragment() {
     private lateinit var networkState: StateFlow<NetworkState>
     private lateinit var databaseState: StateFlow<DatabaseState>
     private lateinit var lastFirstVisiblePosition: Parcelable
-    private var adapter: SearchAdapter? = null
+    private var adapter: FavoriteAdapter? = null
     private var callbacks: Callbacks? = null
 
     private var posToNotify = 0
 
-    private val searchViewModel: SearchViewModel by activityViewModels{
-        SearchViewModel.Factory
+    @Inject
+    private lateinit var favoriteViewModelFactory: FavoriteViewModelFactory
+
+    private val favoriteViewModel: FavoriteViewModel by activityViewModels{
+        favoriteViewModelFactory
     }
 
     override fun onAttach(context: Context) {
@@ -51,8 +56,10 @@ class SearchFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        networkState = searchViewModel.networkState
-        databaseState = searchViewModel.databaseState
+
+
+        networkState = favoriteViewModel.networkState
+        databaseState = favoriteViewModel.databaseState
 
     }
 
@@ -71,14 +78,16 @@ class SearchFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_search, container, false)
+        val view = inflater.inflate(R.layout.fragment_favorite, container, false)
 
-        recyclerView = view.findViewById(R.id.search_recycler_view) as RecyclerView
+
+
+        recyclerView = view.findViewById(R.id.favorite_recycler_view)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
+
         return view
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         var result: Result = Result.Loading
@@ -93,6 +102,7 @@ class SearchFragment: Fragment() {
                         is Result.Loading -> {}
                         is Result.Error -> {}
                     }
+
                 }
             }
         }
@@ -112,58 +122,37 @@ class SearchFragment: Fragment() {
         }
     }
 
-    private fun updateUi(res: Result.Success){
-
-        val list: MutableList<ListItem> = if(res.data.offers.size!=0){
-            mutableListOf(ListItem.RecItem(res.data.offers[0]))
-        } else {
-            mutableListOf()
-        }
-
-        list.add(0, ListItem.SearchItem)
-        list.add(ListItem.StringItem(activity?.getString(R.string.vacancies_for_you) ?: ""))
-        for(i in 0..res.data.vacancies.size){
-            if(i<3){
-                val item = res.data.vacancies[i]
-                item.isFavorite = databaseState.value.favorites.contains(FavoriteVacancyDomain(item.id))
-                list.add(ListItem.VacancyItem(item))
-            } else if(i==3){
-                list.add(ListItem.ButtonItem(res.data.vacancies.size - 3))
-            }
-        }
-        val secondList: List<ListItem.RecItem> = res.data.offers.map{ ListItem.RecItem(it) }
-        adapter = SearchAdapter(list, secondList)
-        recyclerView.adapter = adapter
-        adapter?.onItemClick = { it ->
-            goToUrl(it.offer.link)
-        }
-        adapter?.onButtonClick = {
-            callbacks?.onButtonPressed()
-        }
-        adapter?.onFavoriteClick = { id, pos, toDelete ->
-
-            posToNotify = pos
-            if(toDelete){
-                searchViewModel.deleteFromDB(id)
-            } else {
-                searchViewModel.addToDB(id)
-            }
-
-        }
-        adapter?.onVacancyClick = { vacancyItem ->
-            val string = Json.encodeToJsonElement(vacancyItem.vacancy).toString()
-            callbacks?.onVacancyClick(string)
-        }
-    }
-
     override fun onDetach() {
         super.onDetach()
         callbacks = null
     }
 
-    fun goToUrl(url: String){
-        val uriUrl = Uri.parse(url)
-        val launchBrowser = Intent(Intent.ACTION_VIEW, uriUrl)
-        startActivity(launchBrowser)
+    private fun updateUi(res: Result.Success){
+
+        val list: MutableList<ListItem> = mutableListOf(ListItem.HeaderItem(databaseState.value.favorites.size))
+        for(i in 0..res.data.vacancies.size-1){
+            val item = res.data.vacancies[i]
+            item.isFavorite = databaseState.value.favorites.contains(FavoriteVacancyDomain(item.id))
+            if(item.isFavorite) {
+                list.add(ListItem.VacancyItem(item))
+            }
+        }
+        adapter = FavoriteAdapter(list)
+        recyclerView.adapter = adapter
+
+        adapter?.onFavoriteClick = { id, pos, toDelete ->
+
+            posToNotify = pos
+            if(toDelete){
+                favoriteViewModel.deleteFromDB(id)
+            }
+
+        }
+
+        adapter?.onVacancyClick = { vacancyItem ->
+            val string = Json.encodeToJsonElement(vacancyItem.vacancy).toString()
+            callbacks?.onVacancyClick(string)
+        }
+
     }
 }

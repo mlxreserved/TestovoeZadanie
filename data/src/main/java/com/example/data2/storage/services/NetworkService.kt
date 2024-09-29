@@ -23,5 +23,5 @@ interface GeocoderService {
         @Query("apikey") apiKey: String = KEY_COORDINATE,
         @Query("lang") lang: String = "ru-RU",
         @Query("format") format: String = "json"
-    ): CoordinateDomain
+    ): Coordinate
 }

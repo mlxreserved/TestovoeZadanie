@@ -1,4 +1,4 @@
-package com.example.search
+package com.example.search.decoration
 
 import android.graphics.Rect
 import android.view.View

@@ -1,4 +1,4 @@
-package com.example.login
+package com.example.login.screen
 
 import android.content.Context
 import android.os.Bundle
@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.login.R
 import com.google.android.material.textfield.TextInputLayout
 
 class LoginFragment: Fragment() {

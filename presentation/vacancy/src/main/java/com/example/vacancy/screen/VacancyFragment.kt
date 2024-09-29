@@ -1,4 +1,4 @@
-package com.example.vacancy
+package com.example.vacancy.screen
 
 import android.content.Context
 import android.os.Bundle
@@ -19,20 +19,22 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
-import com.example.data2.storage.model.vacancy.Vacancy
 import com.example.domain.model.favorite.FavoriteVacancyDomain
 import com.example.domain.model.vacancy.VacancyDomain
+import com.example.vacancy.R
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromJsonElement
+import javax.inject.Inject
 
-class VacancyFragment: Fragment() {
+class VacancyFragment : Fragment() {
 
-    interface Callbacks{
+    interface Callbacks {
         fun onVacancyBackClick()
         fun onResponseClick(string: String?)
     }
@@ -62,13 +64,15 @@ class VacancyFragment: Fragment() {
     private lateinit var response: Button
 
 
-
-
     private var callbacks: Callbacks? = null
 
+    @Inject
+    private lateinit var vacancyViewModelFactory: VacancyViewModelFactory
+
     private val vacancyViewModel: VacancyViewModel by activityViewModels{
-        VacancyViewModel.Factory
+        vacancyViewModelFactory
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -77,6 +81,7 @@ class VacancyFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         databaseState = vacancyViewModel.databaseState
         vacancyState = vacancyViewModel.vacancyState
         coordinateState = vacancyViewModel.coordinateState
@@ -90,7 +95,7 @@ class VacancyFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_vacancy, container, false)
 
         val bundle = arguments
-        if(bundle!=null){
+        if (bundle != null) {
             val string: String = bundle.getString("json") ?: ""
             val vacancy = Json.decodeFromJsonElement<VacancyDomain>(Json.parseToJsonElement(string))
             vacancyViewModel.setVacancy(vacancy)
@@ -139,47 +144,55 @@ class VacancyFragment: Fragment() {
         salary.text = vac.salary.full
         experience.text = view.context.getString(R.string.experince, vac.experience.text)
         val vacStr = vac.schedules.joinToString(", ")
-        val scheduleString: List<String> = listOf(vac.schedules[0][0].uppercaseChar().toString(), vacStr.substring(1,vacStr.length))
+        val scheduleString: List<String> = listOf(
+            vac.schedules[0][0].uppercaseChar().toString(),
+            vacStr.substring(1, vacStr.length)
+        )
         schedules.text = scheduleString.joinToString("")
-        if(vac.appliedNumber != null){
+        if (vac.appliedNumber != null) {
             responsed.visibility = View.VISIBLE
-            val peopleText = if((vac.appliedNumber!! % 10 == 2 || vac.appliedNumber!! % 10 == 3 || vac.appliedNumber!! %10 == 4) && vac.appliedNumber!! % 100 / 10 != 1){
-                "человека"
-            } else {
-                "человек"
-            }
-            responsedText.text = view.context.getString(R.string.responsed, vac.appliedNumber, peopleText)
+            val peopleText =
+                if ((vac.appliedNumber!! % 10 == 2 || vac.appliedNumber!! % 10 == 3 || vac.appliedNumber!! % 10 == 4) && vac.appliedNumber!! % 100 / 10 != 1) {
+                    "человека"
+                } else {
+                    "человек"
+                }
+            responsedText.text =
+                view.context.getString(R.string.responsed, vac.appliedNumber, peopleText)
         } else {
             responsed.visibility = View.GONE
         }
-        if(vac.lookingNumber!=null){
+        if (vac.lookingNumber != null) {
             lookingNow.visibility = View.VISIBLE
-            val peopleText = if((vac.lookingNumber!! % 10 == 2 || vac.lookingNumber!! % 10 == 3 || vac.lookingNumber!! %10 == 4) && vac.lookingNumber!! % 100 / 10 != 1){
-                "человека"
-            } else {
-                "человек"
-            }
-            lookingNowText.text = view.context.getString(R.string.looking_now, vac.lookingNumber, peopleText)
+            val peopleText =
+                if ((vac.lookingNumber!! % 10 == 2 || vac.lookingNumber!! % 10 == 3 || vac.lookingNumber!! % 10 == 4) && vac.lookingNumber!! % 100 / 10 != 1) {
+                    "человека"
+                } else {
+                    "человек"
+                }
+            lookingNowText.text =
+                view.context.getString(R.string.looking_now, vac.lookingNumber, peopleText)
         } else {
             lookingNow.visibility = View.GONE
         }
         company.text = vac.company
-        val textForAddress = listOf(vac.address.town, vac.address.street, vac.address.house).joinToString(", ")
+        val textForAddress =
+            listOf(vac.address.town, vac.address.street, vac.address.house).joinToString(", ")
         address.text = textForAddress
         vacancyViewModel.getCoordinates("${vac.address.town}+${vac.address.street}+${vac.address.house}")
-        if(vac.description != null) {
+        if (vac.description != null) {
             description.visibility = View.VISIBLE
             description.text = vac.description
         } else {
             description.visibility = View.GONE
         }
-        if(vac.responsibilities != null) {
+        if (vac.responsibilities != null) {
             tasks.visibility = View.VISIBLE
             tasks.text = vac.responsibilities
         } else {
             tasks.visibility = View.GONE
         }
-        when(vac.questions.size) {
+        when (vac.questions.size) {
             1 -> {
                 button1.visibility = View.VISIBLE
                 button2.visibility = View.GONE
@@ -188,6 +201,7 @@ class VacancyFragment: Fragment() {
                 button5.visibility = View.GONE
                 button1.text = vac.questions[0]
             }
+
             2 -> {
                 button1.visibility = View.VISIBLE
                 button2.visibility = View.VISIBLE
@@ -197,6 +211,7 @@ class VacancyFragment: Fragment() {
                 button1.text = vac.questions[0]
                 button2.text = vac.questions[1]
             }
+
             3 -> {
                 button1.visibility = View.VISIBLE
                 button2.visibility = View.VISIBLE
@@ -207,6 +222,7 @@ class VacancyFragment: Fragment() {
                 button2.text = vac.questions[1]
                 button3.text = vac.questions[2]
             }
+
             4 -> {
                 button1.visibility = View.VISIBLE
                 button2.visibility = View.VISIBLE
@@ -218,6 +234,7 @@ class VacancyFragment: Fragment() {
                 button3.text = vac.questions[2]
                 button4.text = vac.questions[3]
             }
+
             5 -> {
                 button1.visibility = View.VISIBLE
                 button2.visibility = View.VISIBLE
@@ -230,6 +247,7 @@ class VacancyFragment: Fragment() {
                 button4.text = vac.questions[3]
                 button5.text = vac.questions[4]
             }
+
             else -> {
                 button1.visibility = View.GONE
                 button2.visibility = View.GONE
@@ -258,10 +276,11 @@ class VacancyFragment: Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                coordinateState.collect{ coord ->
-                    if(coord.coordinate is Result.Success) {
-                        val coordinates = coord.coordinate.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                coordinateState.collect { coord ->
+                    if (coord.coordinate is Result.Success) {
+                        val coordinates =
+                            coord.coordinate.data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
                         val request =
                             "https://static-maps.yandex.ru/v1?apikey=1af9037f-0073-4182-a85b-192e2f5261bd&ll=${coordinates}&pt=${coordinates},work&z=12&size=300,60&theme=dark"
                         map.load(request)
@@ -276,12 +295,12 @@ class VacancyFragment: Fragment() {
 
 
 
-        menuHost.addMenuProvider(object: MenuProvider {
+        menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.menu_toolbar, menu)
                 val heartActive: MenuItem = menu.findItem(R.id.favoriteActive)
                 val heartInactive: MenuItem = menu.findItem(R.id.favoriteInactive)
-                if(vacancyState.value.vacancy?.isFavorite == true){
+                if (vacancyState.value.vacancy?.isFavorite == true) {
                     heartActive.isVisible = true
                     heartInactive.isVisible = false
                 } else {
@@ -289,9 +308,9 @@ class VacancyFragment: Fragment() {
                     heartInactive.isVisible = true
                 }
                 viewLifecycleOwner.lifecycleScope.launch {
-                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                        databaseState.collect{ vacancies ->
-                            if(vacancies.favorites.contains(FavoriteVacancyDomain(vacancyState.value.vacancy?.id!!))){
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        databaseState.collect { vacancies ->
+                            if (vacancies.favorites.contains(FavoriteVacancyDomain(vacancyState.value.vacancy?.id!!))) {
                                 heartActive.isVisible = true
                                 heartInactive.isVisible = false
                             } else {
@@ -305,12 +324,12 @@ class VacancyFragment: Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                if(menuItem.itemId == android.R.id.home) {
+                if (menuItem.itemId == android.R.id.home) {
                     callbacks?.onVacancyBackClick()
                     return true
-                } else if(menuItem.itemId == R.id.favoriteActive){
+                } else if (menuItem.itemId == R.id.favoriteActive) {
                     vacancyViewModel.deleteFromDB(vacancyState.value.vacancy?.id!!)
-                } else if(menuItem.itemId == R.id.favoriteInactive){
+                } else if (menuItem.itemId == R.id.favoriteInactive) {
                     vacancyViewModel.addToDB(vacancyState.value.vacancy?.id!!)
                 }
                 return false
@@ -324,7 +343,7 @@ class VacancyFragment: Fragment() {
         callbacks = null
     }
 
-    fun updateUi(){
+    fun updateUi() {
     }
 
 }
