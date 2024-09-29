@@ -19,13 +19,13 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.example.domain.model.favorite.FavoriteVacancyDomain
 import com.example.domain.model.vacancy.VacancyDomain
 import com.example.vacancy.R
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -67,7 +67,7 @@ class VacancyFragment : Fragment() {
     private var callbacks: Callbacks? = null
 
     @Inject
-    private lateinit var vacancyViewModelFactory: VacancyViewModelFactory
+    lateinit var vacancyViewModelFactory: VacancyViewModelFactory
 
     private val vacancyViewModel: VacancyViewModel by activityViewModels{
         vacancyViewModelFactory
@@ -75,6 +75,7 @@ class VacancyFragment : Fragment() {
 
 
     override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
         super.onAttach(context)
         callbacks = context as Callbacks?
     }

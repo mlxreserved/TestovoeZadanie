@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
@@ -41,6 +42,10 @@ dependencies {
     implementation(libs.javax.inject)
     //Coil
     implementation(libs.io.coil.kt)
+
+    implementation(libs.google.dagger.android.support)
+    ksp(libs.google.dagger.android.processor)
+    implementation(libs.google.dagger.android)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

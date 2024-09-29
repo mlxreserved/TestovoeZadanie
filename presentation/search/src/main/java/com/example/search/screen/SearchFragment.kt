@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -48,10 +49,9 @@ class SearchFragment : Fragment() {
     @Inject
     lateinit var searchViewModelFactory: SearchViewModelFactory
 
-    private lateinit var searchViewModel: SearchViewModel
-    /*private val searchViewModel: SearchViewModel by activityViewModels{
+    private val searchViewModel: SearchViewModel by activityViewModels{
         searchViewModelFactory
-    }*/
+    }
 
 
     override fun onAttach(context: Context) {
@@ -62,9 +62,6 @@ class SearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        searchViewModel = ViewModelProvider(this, searchViewModelFactory)
-            .get(SearchViewModel::class.java)
 
         networkState = searchViewModel.networkState
         databaseState = searchViewModel.databaseState

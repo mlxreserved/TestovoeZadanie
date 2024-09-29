@@ -19,6 +19,7 @@ import com.example.domain.model.favorite.FavoriteVacancyDomain
 import com.example.favorite.R
 import com.example.favorite.adapter.FavoriteAdapter
 import com.example.favorite.adapter.ListItem
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -43,13 +44,14 @@ class  FavoriteFragment: Fragment() {
     private var posToNotify = 0
 
     @Inject
-    private lateinit var favoriteViewModelFactory: FavoriteViewModelFactory
+    lateinit var favoriteViewModelFactory: FavoriteViewModelFactory
 
     private val favoriteViewModel: FavoriteViewModel by activityViewModels{
         favoriteViewModelFactory
     }
 
     override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
         super.onAttach(context)
         callbacks = context as Callbacks?
     }

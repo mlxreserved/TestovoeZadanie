@@ -17,6 +17,7 @@ import com.example.domain.model.favorite.FavoriteVacancyDomain
 import com.example.search.R
 import com.example.search.adapter.ListItem
 import com.example.search.adapter.SearchAdapter
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -41,16 +42,15 @@ class MoreFragment: Fragment() {
 
 
     @Inject
-    private lateinit var searchViewModelFactory: SearchViewModelFactory
+    lateinit var searchViewModelFactory: SearchViewModelFactory
 
     private val searchViewModel: SearchViewModel by activityViewModels{
         searchViewModelFactory
     }
 
 
-
-
     override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
         super.onAttach(context)
         callbacks = context as Callbacks?
     }
